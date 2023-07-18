@@ -6,7 +6,8 @@
 		"Station Overseer",
 		"Stationmaster",
 		"Condom",
-		"Senator"
+		"Senator",
+		"Station Mommy"
 	)
 	LAZYADD(alt_titles, extra_titles)
 	. = ..()
@@ -104,7 +105,8 @@
 		"Snack",
 		"Stress Relief",
 		"Freeloader",
-		"Station Pet"
+		"Station Pet",
+		"Breeder"
 	)
 	LAZYADD(alt_titles, extra_titles)
 	. = ..()
@@ -343,7 +345,9 @@
 		"Mail Woman",
 		"Mailroom Technician",
 		"Logistics Technician",
-		"Cryptocurrency Technician"
+		"Cryptocurrency Technician",
+		"Postal Dude",
+		"Postal Girl"
 	)
 	LAZYADD(alt_titles, extra_titles)
 	. = ..()
@@ -355,7 +359,8 @@
 		"Hunter",
 		"Ashwalker Sex Slave",
 		"Ashwalker Breeder",
-		"Slayer"
+		"Slayer",
+		"Bottomless Pit Supervisor"
 	)
 	LAZYADD(alt_titles, extra_titles)
 	. = ..()
