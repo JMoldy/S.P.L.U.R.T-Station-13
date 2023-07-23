@@ -40,3 +40,22 @@
   - tweak: Funclaw lewd noises are now muted by disallowed lewd sounds
   LeChatGuid2:
   - tweak: Modified flavor_text.dm to make OOC notes always visible
+2023-07-18:
+  AshTheDerg:
+  - rscadd: Peacekeeper Choice Beacon
+  - rscadd: Preparation for map additions
+  - rscdel: Tasers from Peacekeepers
+  - tweak: Peacekeeper access
+  - tweak: Peacekeeper supervision
+  - bugfix: CogStation
+  Vhariik:
+  - rscadd: Layenia Station and it's contents (walls, floors and decals)
+  - tweak: Fixed firing pins
+2023-07-19:
+  SandPoot:
+  - rscadd: You can milk other people using the interaction menu.
+2023-07-22:
+  BongaTheProto:
+  - rscadd: adds the clothesplosion verb which lets you burst out of your clothes
+  - bugfix: adds a delay to the well trained blushing so that our subs don't go spamming
+      blushes everywhere
