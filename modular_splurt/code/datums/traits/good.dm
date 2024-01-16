@@ -1,22 +1,7 @@
-//Main code edits
-/datum/quirk/photographer
-	desc = "You carry your camera and personal photo album everywhere you go, and you're quicker at taking pictures."
-
-/datum/quirk/photographer/on_spawn()
-	. = ..()
-	var/mob/living/carbon/human/H = quirk_holder
-	var/obj/item/storage/photo_album/photo_album = new(get_turf(H))
-	H.put_in_hands(photo_album)
-	H.equip_to_slot(photo_album, ITEM_SLOT_BACKPACK)
-	photo_album.persistence_id = "personal_[H.mind.key]" // this is a persistent album, the ID is tied to the account's key to avoid tampering
-	photo_album.persistence_load()
-	photo_album.name = "[H.real_name]'s photo album"
-
-//Own stuff
 /datum/quirk/tough
 	name = "Tough"
 	desc = "Your body is abnormally enduring and can take 10% more damage."
-	value = 4
+	value = 2
 	medical_record_text = "Patient has an abnormally high capacity for injury."
 	gain_text = span_notice("You feel very sturdy.")
 	lose_text = span_notice("You feel less sturdy.")
@@ -50,38 +35,18 @@
 
 /datum/quirk/rad_fiend
 	name = "Rad Fiend"
-	desc = "You've been blessed by Cherenkov's warming light, causing you to emit a subtle glow at all times. Only intense radiation is capable of penetrating your protective barrier."
+	desc = "You've been blessed by Cherenkov's warming light, causing you to emit a subtle glow at all times. Only -very- intense radiation is capable of penetrating your protective barrier."
 	value = 2
 	mob_trait = TRAIT_RAD_FIEND
 	gain_text = span_notice("You feel empowered by Cherenkov's glow.")
 	lose_text = span_notice("You realize that rads aren't so rad.")
 
-	// Variable for the radiation immunity check
-	var/can_gain = TRUE
-
 /datum/quirk/rad_fiend/add()
 	// Define quirk holder mob
 	var/mob/living/carbon/human/quirk_mob = quirk_holder
-
-	// Check for any radiation immunity
-	if(HAS_TRAIT(quirk_mob, TRAIT_RADIMMUNE))
-		// Set gain status
-		can_gain = FALSE
-
-		// Return without doing anything
-		return
-
 	// Add glow control action
 	var/datum/action/rad_fiend/update_glow/quirk_action = new
 	quirk_action.Grant(quirk_mob)
-
-/datum/quirk/rad_fiend/post_add()
-	// Check if quirk effect was gained
-	if(can_gain)
-		return
-
-	// Alert quirk holder of gain status
-	to_chat(quirk_holder, span_warning("As you are immune to radiation, you were unable to gain Cherenkov's blessing. Please discuss alternatives with a medical professional."))
 
 /datum/quirk/rad_fiend/remove()
 	// Define quirk holder mob
@@ -275,3 +240,23 @@
 // Quirk examine text.
 /datum/quirk/hallowed/proc/quirk_examine_Hallowed(atom/examine_target, mob/living/carbon/human/examiner, list/examine_list)
 	examine_list += "[quirk_holder.p_they(TRUE)] radiates divine power..."
+
+/datum/quirk/vacuum_resistance
+    name = "Vacuum Resistance"
+    desc = "Your body, whether due to technology, magic, or genetic engineering - is specially adapted to withstand and operate in the vacuum of space. You may still need a source of breathable air, however."
+    value = 3
+    gain_text = span_notice("Your physique attunes to the silence of space, now able to operate in zero pressure.")
+    lose_text = span_notice("Your physiology reverts as your spacefaring gifts lay dormant once more.")
+    var/list/perks = list(TRAIT_RESISTCOLD, TRAIT_RESISTLOWPRESSURE, TRAIT_LOWPRESSURECOOLING)
+
+/datum/quirk/vacuum_resistance/add()
+	. = ..()
+	var/mob/living/carbon/human/H = quirk_holder
+	for(var/perk in perks)
+		ADD_TRAIT(H, perk, ROUNDSTART_TRAIT)
+
+/datum/quirk/vacuum_resistance/remove()
+	. = ..()
+	var/mob/living/carbon/human/H = quirk_holder
+	for(var/perk in perks)
+		REMOVE_TRAIT(H, perk, ROUNDSTART_TRAIT)
